@@ -1,2 +1,3 @@
+
 // namespace core
 let core;

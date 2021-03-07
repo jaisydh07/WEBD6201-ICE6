@@ -27,11 +27,13 @@
         // content injection
         $("a").on("click", function()
         {
-          $(`#${router.ActiveLink}`).removeClass("active"); // removes highlighted link
-          router.ActiveLink = $(this).attr("id");
-          loadContent(router.ActiveLink);
-          $(`#${router.ActiveLink}`).addClass("active"); // applies highlighted link to new page
-          history.pushState({},"", router.ActiveLink); // this replaces the url displayed in the browser
+          $(`#${activeLink}`).removeClass("active"); // removes highlighted link
+          activeLink = $(this).attr("id");
+          loadContent(activeLink);
+          $(`#${activeLink}`).addClass("active"); // applies highlighted link to new page
+
+          console.log(activeLink);
+          history.pushState({},"", activeLink); // this replaces the url displayed in the browser
           //location.href = String( location.href ).replace( /#/, "" ); // remove # ? nope
         });
 
