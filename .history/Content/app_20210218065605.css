@@ -12,7 +12,7 @@
     line-height: 1;
     text-align: center;
     border: 1px solid darkgrey;
-    border-radius: 4px; 
+    border-radius: 4xpx; 
 }
 
 .input-group-addon .fa
@@ -51,10 +51,3 @@
     border-radius: .4em;
     width: 100%;
 }
-
-.edit-task
-{
-    position: relative;
-    top: -31px;
-    display: none;
-} 

@@ -34,6 +34,7 @@
           loadContent(router.ActiveLink, ActiveLinkCallBack(router.ActiveLink));
           $(`#${router.ActiveLink}`).addClass("active"); // applies highlighted link to new page
           history.pushState({},"", router.ActiveLink); // this replaces the url displayed in the browser
+          //location.href = String( location.href ).replace( /#/, "" ); // remove # ? nope
         });
 
         // make it look like each nav item is an active link
@@ -183,6 +184,8 @@
     {
       // don't allow visitors to go here
       authGuard();
+
+      toggleLogin();
 
       if (localStorage.length > 0) 
       {
@@ -356,6 +359,7 @@
 
     function toggleLogin()
     {
+      console.log("toggled login");
       // if user is logged in
       if(sessionStorage.getItem("user"))
       {
@@ -380,7 +384,7 @@
         });
        
         $(`<li class="nav-item">
-        <a id="contact-list" class="nav-link" aria-current="page"><i class="fas fa-users fa-lg"></i> Contact List</a>
+        <a id="contactListLink" class="nav-link" aria-current="page" href="/contact-list"><i class="fas fa-users fa-lg"></i> Contact List</a>
       </li>`).insertBefore("#loginListItem");
       
       }
