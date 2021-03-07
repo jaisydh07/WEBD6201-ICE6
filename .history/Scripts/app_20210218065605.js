@@ -8,77 +8,55 @@
 
 ((core) =>
 {
-    /**
-     * Inject the Navigation bar into the Header element and highlight the active link based on the pageName parameter
-     *
-     * @param {string} pageName
-     */
-    function loadHeader(pageName)
-    {
-        // inject the Header
-      $.get("./Views/components/header.html", function(data)
-      {
-        $("header").html(data); // load the navigation bar
-        $(`#${pageName}`).addClass("active"); // highlight active link
-
-        // loop through each anchor tag in the unordered list and 
-        // add an event listener / handler to allow for 
-        // content injection
-        $("a").on("click", function()
-        {
-          $(`#${activeLink}`).removeClass("active"); // removes highlighted link
-          activeLink = $(this).attr("id");
-          loadContent(activeLink);
-          $(`#${activeLink}`).addClass("active"); // applies highlighted link to new page
-
-          console.log(activeLink);
-          history.pushState({},"", activeLink); // this replaces the url displayed in the browser
-          //location.href = String( location.href ).replace( /#/, "" ); // remove # ? nope
-        });
-
-        // make it look like each nav item is an active link
-        $("a").on("mouseover", function()
-        {
-          $(this).css('cursor', 'pointer');
-        });
-
-      });
-    }
-
-        /**
-     * Inject page content in the main element 
-     *
-     * @param {string} pageName
-     * @returns {void}
-     */
-    function loadContent(pageName)
-    {
-      // inject content
-      $.get(`./Views/content/${pageName}.html`, function(data)
-      {
-        $("main").html(data);
-      });
-    }
-
-    function loadFooter()
-    {
-      // inject the Footer
-      $.get("./Views/components/footer.html", function(data)
-      {
-        $("footer").html(data);
-      });
-    }
-
     function displayHome()
     {
-      activeLink = "home";
+        let paragraphOneText =
+          "This is a simple site to demonstrate DOM Manipulation for ICE 1";
 
-      loadHeader(activeLink);
+        let paragraphOneElement = document.getElementById("paragraphOne");
 
-      loadContent(activeLink);
+        paragraphOneElement.textContent = paragraphOneText;
+        paragraphOneElement.className = "fs-5";
 
-      loadFooter();
-        
+        // Step 1. document.createElement
+        let newParagraph = document.createElement("p");
+        // Step 2. configure the element
+        newParagraph.setAttribute("id", "paragraphTwo");
+        newParagraph.textContent = "...And this is paragraph two";
+        // Step 3. select the parent element
+        let mainContent = document.getElementsByTagName("main")[0];
+        // Step 4. Add / Insert the element
+        mainContent.appendChild(newParagraph);
+
+        newParagraph.className = "fs-6";
+
+        // another way of injecting content
+        let paragraphDiv = document.createElement("div");
+        let paragraphThree = `<p id="paragraphThree" class="fs-7 fw-bold">And this is the Third Paragraph</p>`;
+        paragraphDiv.innerHTML = paragraphThree;
+
+        // insertions
+
+        // example of inserting before a node
+        //newParagraph.before(paragraphDiv);
+
+        // example of inserting after a node
+        newParagraph.after(paragraphDiv);
+
+        // deletions
+
+        // example of removing a single element
+        //paragraphOneElement.remove();
+
+        // example of removeChild
+        mainContent.removeChild(paragraphOneElement);
+
+        // update / modification
+        //mainContent.firstElementChild.textContent = "Welcome Home!";
+
+        mainContent.innerHTML = `<h1 id="firstHeading">Welcome to WEBD6201 - Lab 1</h1>
+         <p id="paragraphOne" class="fs-3 fw-bold">This is my first Paragraph</p>
+        `;
         
     }
 
